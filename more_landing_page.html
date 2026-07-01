@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOR.e — Scalp Studio, Vancouver</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky:          #C3DAE8;
+    --sky-deep:     #7BA2BD;
+    --mocha:        #432F2E;
+    --mocha-soft:   #5A453F;
+    --custard:      #FEEFB6;
+    --custard-deep: #F3DD8F;
+    --custard-text: #6B5420;
+    --cloud:        #D1CDC6;
+    --cream:        #F4EEE2;
+    --ink:          #3A2C2A;
+    --ink-soft:     #6B5856;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Spectral', serif;
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--custard); color: var(--mocha); }
+
+  a { color: inherit; }
+
+  .wave-divider { width: 100%; display: block; line-height: 0; }
+  .wave-divider svg { width: 100%; height: 60px; display: block; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244,238,226,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--cloud);
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--mocha);
+  }
+  .nav-logo .e { font-style: italic; color: var(--custard-text); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--mocha); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--mocha);
+    color: var(--cream);
+    padding: 11px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav { padding: 16px 24px; }
+  }
+
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 70px 64px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin-bottom: 22px;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(44px, 6.4vw, 76px);
+    font-weight: 400;
+    line-height: 1.06;
+    color: var(--mocha);
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--custard-text);
+  }
+
+  .hero-desc {
+    font-family: 'Spectral', serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 440px;
+    margin-bottom: 40px;
+    border-left: 2px solid var(--sky-deep);
+    padding-left: 22px;
+  }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--mocha);
+    color: var(--cream);
+    padding: 16px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(67,47,46,0.18); }
+
+  .btn-secondary {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--mocha);
+    padding: 16px 32px;
+    border-radius: 40px;
+    border: 1.5px solid var(--mocha);
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(67,47,46,0.06); }
+
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .pill {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 30px;
+    border: 1px solid var(--sky-deep);
+    color: var(--mocha);
+    background: rgba(195,218,232,0.35);
+  }
+
+  .hero-right {
+    background: var(--sky-deep);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 28% 24%, rgba(244,238,226,0.22) 0%, transparent 62%),
+      radial-gradient(ellipse 60% 75% at 78% 82%, rgba(67,47,46,0.32) 0%, transparent 60%);
+  }
+
+  .hero-waves {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+
+  .hero-right-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 50px 40px;
+  }
+
+  .hero-medallion {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    border: 1px solid rgba(244,238,226,0.32);
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-medallion::before {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(244,238,226,0.5);
+  }
+  .hero-medallion-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: var(--cream);
+  }
+  .hero-medallion-mark .e { font-style: italic; color: var(--custard); }
+
+  .hero-right-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(244,238,226,0.92);
+    line-height: 2;
+  }
+
+  .hero-right-line {
+    width: 36px;
+    height: 1px;
+    background: rgba(244,238,226,0.45);
+    margin: 22px auto;
+  }
+
+  .hero-right-quote {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(244,238,226,0.9);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 56px 28px 40px; }
+    .hero-right { padding: 56px 28px; min-height: 320px; }
+    .hero-desc { padding-left: 16px; }
+  }
+
+  .section { padding: 96px 48px; max-width: 1080px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .section-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cloud), transparent);
+    max-width: 140px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4.2vw, 46px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--mocha);
+    margin-bottom: 18px;
+  }
+  .section-title em { font-style: italic; color: var(--custard-text); }
+
+  .section-body {
+    font-family: 'Spectral', serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 860px) {
+    .section { padding: 64px 24px; }
+  }
+
+  .philosophy {
+    background: var(--sky);
+    padding: 80px 48px;
+  }
+  .philosophy-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .philosophy-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--mocha);
+    margin-bottom: 22px;
+  }
+  .philosophy-body {
+    font-family: 'Spectral', serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #2E4A5C;
+    line-height: 1.9;
+  }
+  .pillars { display: flex; flex-direction: column; gap: 18px; }
+  .pillar {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 20px 22px;
+    background: var(--cream);
+    border-radius: 16px;
+  }
+  .pillar-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--mocha);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .pillar-icon span { color: var(--custard); font-size: 15px; font-family: 'DM Serif Display', serif; font-style: italic; }
+  .pillar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--mocha);
+    margin-bottom: 4px;
+  }
+  .pillar-text {
+    font-family: 'Spectral', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 860px) {
+    .philosophy-inner { grid-template-columns: 1fr; gap: 36px; }
+    .philosophy { padding: 56px 24px; }
+  }
+
+  /* ─── INNOVATION SECTION ────────────────────────────────── */
+  .innovation-section { background: var(--mocha); padding: 88px 48px; }
+  .innovation-inner { max-width: 920px; margin: 0 auto; text-align: center; }
+  .innovation-eyebrow {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--custard); margin-bottom: 18px;
+  }
+  .innovation-title {
+    font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4.4vw, 44px); color: var(--cream);
+    line-height: 1.22; margin-bottom: 20px;
+  }
+  .innovation-title em { font-style: italic; color: var(--custard); }
+  .innovation-lead {
+    font-family: 'Spectral', serif; font-size: 16px; font-weight: 300; color: var(--cloud);
+    max-width: 600px; margin: 0 auto 48px; line-height: 1.85;
+  }
+
+  .innovation-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr auto 1.3fr; gap: 14px; align-items: stretch;
+    margin-bottom: 48px;
+  }
+  .innovation-card {
+    background: rgba(244,238,226,0.06); border: 1px solid rgba(244,238,226,0.18); border-radius: 18px;
+    padding: 26px 22px; text-align: left;
+  }
+  .innovation-card.featured-card { background: var(--custard); border: none; }
+  .innovation-card-num {
+    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--sky-deep); margin-bottom: 10px;
+  }
+  .innovation-card-num.featured-num { color: var(--custard-text); }
+  .innovation-card-title {
+    font-family: 'DM Serif Display', serif; font-size: 19px; color: var(--cream); margin-bottom: 10px; line-height: 1.3;
+  }
+  .innovation-card.featured-card .innovation-card-title { color: var(--mocha); }
+  .innovation-card-text {
+    font-family: 'Spectral', serif; font-size: 13px; font-weight: 300; color: var(--cloud); line-height: 1.75;
+  }
+  .innovation-card.featured-card .innovation-card-text { color: var(--mocha-soft); }
+  .innovation-plus, .innovation-equals {
+    font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--custard);
+    display: flex; align-items: center; justify-content: center; align-self: center;
+  }
+
+  .innovation-benefits {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 40px; text-align: left;
+  }
+  .innovation-benefit { background: rgba(244,238,226,0.06); border-radius: 16px; padding: 22px 20px; }
+  .innovation-benefit-label {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--custard); margin-bottom: 10px;
+  }
+  .innovation-benefit-text {
+    font-family: 'Spectral', serif; font-size: 13px; font-weight: 300; color: var(--cloud); line-height: 1.8;
+  }
+
+  .innovation-link {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--custard); text-decoration: none; border-bottom: 1px solid var(--custard); padding-bottom: 2px;
+  }
+
+  @media (max-width: 860px) {
+    .innovation-section { padding: 56px 24px; }
+    .innovation-grid { grid-template-columns: 1fr; }
+    .innovation-plus, .innovation-equals { font-size: 22px; }
+    .innovation-benefits { grid-template-columns: 1fr; }
+  }
+
+  .launch-strip {
+    background: var(--mocha);
+    border-radius: 22px;
+    padding: 26px 32px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .launch-strip-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--custard);
+    margin-bottom: 8px;
+  }
+  .launch-strip-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .launch-strip-sub {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--cloud);
+  }
+
+  .seats-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--custard);
+    border-radius: 16px;
+    padding: 16px 26px;
+    margin-bottom: 48px;
+  }
+  .seats-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--custard-text);
+    flex-shrink: 0;
+  }
+  .seats-text {
+    font-family: 'Spectral', serif;
+    font-size: 13px;
+    color: var(--custard-text);
+    line-height: 1.6;
+  }
+  .seats-text strong { font-weight: 600; }
+
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 22px;
+  }
+
+  .program-card {
+    background: var(--cream);
+    border: 1px solid var(--cloud);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .program-card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(67,47,46,0.1); }
+  .program-card.featured { border: 2px solid var(--sky-deep); }
+
+  .program-top { padding: 28px 26px 18px; border-bottom: 1px solid var(--cloud); position: relative; }
+
+  .featured-badge {
+    font-family: 'Syne', sans-serif;
+    background: var(--mocha);
+    color: var(--cream);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 5px 13px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .program-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin-bottom: 10px;
+  }
+
+  .program-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--mocha);
+    margin-bottom: 6px;
+  }
+
+  .program-tagline {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .duration-chip {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--cream);
+    background: var(--mocha);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  .market-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .market-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+  .market-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .launch-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .launch-price { font-family: 'DM Serif Display', serif; font-size: 38px; color: var(--mocha); line-height: 1; }
+  .launch-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--custard-text);
+  }
+
+  .future-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    padding-top: 10px;
+    border-top: 1px dashed var(--cloud);
+  }
+  .future-price strong { color: var(--mocha); }
+
+  .program-body { padding: 22px 26px 26px; }
+  .program-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.65;
+    margin-bottom: 10px;
+  }
+  .program-items { list-style: none; margin-bottom: 16px; }
+  .program-items li {
+    font-family: 'Spectral', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.95;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .program-items li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--sky);
+    flex-shrink: 0;
+    margin-top: 9px;
+  }
+  .program-items li.highlight { color: var(--mocha); font-weight: 500; }
+  .program-items li.highlight::before { background: var(--sky-deep); }
+  .program-items li.spark::before { background: var(--custard); border: 1px solid var(--custard-deep); }
+
+  .opt-chips { display: flex; gap: 6px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--cloud); }
+  .opt-chip {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #fff;
+    color: var(--ink-soft);
+    border: 1px solid var(--cloud);
+  }
+  .opt-chip.spark { background: var(--custard); color: var(--custard-text); border-color: var(--custard-deep); }
+
+  .consult-card {
+    background: var(--mocha);
+    border-radius: 22px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .consult-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .consult-left { padding: 32px 32px; border-right: 1px solid rgba(244,238,226,0.14); }
+  .consult-right { padding: 32px 32px; }
+  .consult-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--custard);
+    margin-bottom: 10px;
+  }
+  .consult-name { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--cream); margin-bottom: 8px; }
+  .consult-tagline { font-family: 'Spectral', serif; font-style: italic; font-size: 14px; color: var(--cloud); margin-bottom: 18px; line-height: 1.6; }
+  .consult-duration {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--mocha);
+    background: var(--custard);
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  .consult-price { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--custard); }
+  .consult-price-note { font-family: 'Syne', sans-serif; font-size: 11px; color: var(--cloud); margin-top: 6px; line-height: 1.6; }
+  .consult-section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cloud);
+    opacity: 0.85;
+    margin-bottom: 14px;
+  }
+  .consult-items { list-style: none; }
+  .consult-items li {
+    font-family: 'Spectral', serif;
+    font-size: 14px;
+    color: var(--cloud);
+    line-height: 2;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .consult-items li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--sky-deep);
+    flex-shrink: 0;
+    margin-top: 9px;
+  }
+
+  @media (max-width: 860px) {
+    .program-grid { grid-template-columns: 1fr; }
+    .consult-grid { grid-template-columns: 1fr; }
+    .consult-left { border-right: none; border-bottom: 1px solid rgba(244,238,226,0.14); }
+  }
+
+  .promo-note {
+    background: var(--sky);
+    border-radius: 18px;
+    padding: 22px 28px;
+    font-family: 'Spectral', serif;
+    font-size: 14px;
+    color: #1A3D52;
+    line-height: 1.85;
+  }
+  .promo-note strong { font-weight: 600; }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .trust-grid .trust-card:first-child {
+    grid-column: 1 / -1;
+  }
+  .trust-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 28px;
+    border: 1px solid var(--cloud);
+    position: relative;
+  }
+  .trust-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 4px;
+    background: var(--sky-deep);
+    border-radius: 4px 0 0 4px;
+  }
+  .trust-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    color: var(--mocha);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .trust-body {
+    font-family: 'Spectral', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.85;
+  }
+
+  @media (max-width: 860px) {
+    .trust-grid { grid-template-columns: 1fr; }
+  }
+
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .learn-card {
+    background: var(--cream);
+    border: 1px solid var(--cloud);
+    border-radius: 20px;
+    padding: 26px 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .learn-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(67,47,46,0.1);
+    border-color: var(--sky-deep);
+  }
+  .learn-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .learn-card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--mocha);
+    color: var(--custard);
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .learn-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+  }
+  .learn-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    color: var(--mocha);
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .learn-card-desc {
+    font-family: 'Spectral', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .learn-card-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--mocha);
+  }
+
+  @media (max-width: 860px) {
+    .learn-grid { grid-template-columns: 1fr; }
+  }
+
+  .testimonial-section {
+    background: var(--sky-deep);
+    padding: 90px 48px;
+    text-align: center;
+  }
+  .testimonial-quote {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(22px, 3.4vw, 32px);
+    color: var(--cream);
+    max-width: 720px;
+    margin: 0 auto 22px;
+    line-height: 1.5;
+  }
+  .testimonial-attr {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244,238,226,0.78);
+  }
+
+  .final-cta {
+    background: var(--mocha);
+    padding: 100px 48px;
+    text-align: center;
+  }
+  .final-cta-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4.6vw, 48px);
+    color: var(--cream);
+    margin-bottom: 18px;
+  }
+  .final-cta-title .e { font-style: italic; color: var(--custard); }
+  .final-cta-sub {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--cloud);
+    margin-bottom: 36px;
+  }
+
+  .footer {
+    background: var(--cream);
+    padding: 48px 48px 32px;
+    border-top: 1px solid var(--cloud);
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--mocha); margin-bottom: 8px; }
+  .footer-logo .e { font-style: italic; color: var(--custard-text); }
+  .footer-tag { font-family: 'Spectral', serif; font-style: italic; font-size: 12px; color: var(--ink-soft); }
+  .footer-meta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+  .footer-bottom {
+    max-width: 1080px;
+    margin: 32px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--cloud);
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    color: var(--ink-soft);
+    opacity: 0.7;
+    text-align: center;
+  }
+
+  /* ─── DEEP DIVE SECTIONS (merged detail content) ───────── */
+  .deep-section { background: var(--mocha); padding: 64px 48px 8px; }
+  .deep-section-inner { max-width: 760px; margin: 0 auto; padding-bottom: 56px; }
+  .deep-eyebrow { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--custard); margin-bottom: 16px; }
+  .deep-title { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4.4vw, 42px); color: var(--cream); line-height: 1.18; margin-bottom: 14px; }
+  .deep-title em { font-style: italic; color: var(--custard); }
+  .deep-sub { font-family: 'Spectral', serif; font-style: italic; font-size: 15px; color: var(--cloud); margin-bottom: 0; }
+
+  .deep-body-wrap { background: var(--cream); padding: 4px 48px 72px; }
+  .deep-content { max-width: 760px; margin: 0 auto; }
+
+  .lead { font-family: 'Spectral', serif; font-size: 18px; font-weight: 300; color: var(--ink); line-height: 1.85; margin-bottom: 40px; }
+  .lead strong { font-weight: 600; color: var(--mocha); }
+
+  .h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--mocha); margin: 48px 0 16px; line-height: 1.3; }
+  .h2 em { font-style: italic; color: var(--custard-text); }
+  .body-text { font-family: 'Spectral', serif; font-size: 15px; font-weight: 300; color: var(--ink-soft); line-height: 1.9; margin-bottom: 16px; }
+
+  .pull-quote { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; color: var(--mocha); border-left: 3px solid var(--sky-deep); padding-left: 24px; margin: 36px 0; line-height: 1.5; }
+
+  .mechanism-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0 40px; }
+  .mechanism-card { background: #fff; border: 1px solid var(--cloud); border-radius: 18px; padding: 24px 22px; position: relative; }
+  .mechanism-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: var(--sky-deep); border-radius: 4px 0 0 4px; }
+  .mechanism-num { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--sky-deep); margin-bottom: 10px; }
+  .mechanism-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--mocha); margin-bottom: 8px; line-height: 1.3; }
+  .mechanism-text { font-family: 'Spectral', serif; font-size: 12.5px; font-weight: 300; color: var(--ink-soft); line-height: 1.75; }
+
+  .stat-strip { background: var(--sky); border-radius: 20px; padding: 32px 28px; margin: 40px 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; text-align: center; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--mocha); }
+  .stat-label { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; color: #1A3D52; margin-top: 4px; line-height: 1.5; }
+
+  .faq-item { border-bottom: 1px solid var(--cloud); padding: 20px 0; }
+  .faq-q { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--mocha); margin-bottom: 8px; }
+  .faq-a { font-family: 'Spectral', serif; font-size: 14px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; }
+
+  .case-block { margin-bottom: 56px; }
+  .case-label-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .case-num { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--sky-deep); }
+  .case-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .photo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .photo-frame { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--cloud); background: #fff; }
+  .photo-frame img { width: 100%; height: 320px; object-fit: cover; display: block; }
+  .photo-tag { position: absolute; top: 14px; left: 14px; font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(244,238,226,0.92); color: var(--mocha); }
+  .photo-tag.after { background: var(--custard); }
+  .case-caption { font-family: 'Spectral', serif; font-style: italic; font-size: 13px; color: var(--ink-soft); text-align: center; max-width: 580px; margin: 0 auto; }
+  .single-photo { border-radius: 18px; overflow: hidden; border: 1px solid var(--cloud); margin-bottom: 16px; }
+  .single-photo img { width: 100%; max-height: 440px; object-fit: cover; display: block; }
+  .notice-box { background: var(--sky); border-radius: 18px; padding: 20px 24px; margin: 40px 0; font-family: 'Spectral', serif; font-size: 13px; color: #1A3D52; line-height: 1.85; }
+  .notice-box strong { font-weight: 600; }
+  .results-strip { background: var(--sky); border-radius: 20px; padding: 36px 30px; margin: 48px 0; }
+  .results-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--mocha); margin-bottom: 20px; text-align: center; }
+  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .result-stat { text-align: center; }
+  .result-num { font-family: 'DM Serif Display', serif; font-size: 24px; color: #1A3D52; }
+  .result-label { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 600; color: #1A3D52; opacity: 0.85; margin-top: 4px; line-height: 1.5; }
+
+  .tool-card { background: #fff; border: 1px solid var(--cloud); border-radius: 20px; padding: 28px 26px; margin: 28px 0; display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; }
+  .tool-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--sky); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .tool-icon-mark { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 26px; color: var(--mocha); }
+  .tool-name { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--mocha); margin-bottom: 6px; }
+  .tool-desc { font-family: 'Spectral', serif; font-size: 13px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; }
+  .benefit-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 28px 0 40px; max-width: 400px; }
+  .benefit-card { background: var(--sky); border-radius: 16px; padding: 20px 18px; }
+  .benefit-area { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1A3D52; margin-bottom: 10px; }
+  .benefit-list { list-style: none; }
+  .benefit-list li { font-family: 'Spectral', serif; font-size: 13px; color: #1A3D52; line-height: 1.8; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 6px; }
+  .benefit-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--mocha); flex-shrink: 0; margin-top: 8px; }
+  .scalp-focus { background: var(--mocha); border-radius: 20px; padding: 32px 28px; margin: 40px 0; }
+  .scalp-focus-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--custard); margin-bottom: 12px; }
+  .scalp-focus-text { font-family: 'Spectral', serif; font-size: 14px; color: var(--cloud); line-height: 1.9; }
+  .steps { margin: 28px 0 40px; }
+  .step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+  .step-num { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--sky-deep); width: 32px; flex-shrink: 0; }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--mocha); margin-bottom: 4px; }
+  .step-text { font-family: 'Spectral', serif; font-size: 14px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; }
+
+  .patent-banner { background: var(--sky); border-radius: 18px; padding: 20px 24px; margin-bottom: 40px; display: flex; align-items: center; gap: 16px; }
+  .patent-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--mocha); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .patent-icon span { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--custard); font-size: 16px; }
+  .patent-text { font-family: 'Spectral', serif; font-size: 13px; color: #1A3D52; line-height: 1.7; }
+  .patent-text strong { font-weight: 600; }
+  .process-flow { display: flex; gap: 0; margin: 28px 0 40px; flex-wrap: wrap; }
+  .process-step { flex: 1; min-width: 150px; background: #fff; border: 1px solid var(--cloud); border-radius: 16px; padding: 20px 16px; text-align: center; margin-right: 12px; }
+  .process-step:last-child { margin-right: 0; }
+  .process-num { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--sky-deep); margin-bottom: 8px; }
+  .process-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--mocha); margin-bottom: 6px; letter-spacing: 0.04em; }
+  .process-text { font-family: 'Spectral', serif; font-size: 12px; font-weight: 300; color: var(--ink-soft); line-height: 1.6; }
+
+  .deep-divider { border: none; border-top: 1px solid var(--cloud); margin: 56px 0 0; }
+
+  @media (max-width: 700px) {
+    .mechanism-grid { grid-template-columns: 1fr; }
+    .photo-pair { grid-template-columns: 1fr; }
+    .photo-frame img { height: 260px; }
+    .results-grid { grid-template-columns: 1fr; gap: 12px; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .tool-card { grid-template-columns: 1fr; text-align: center; }
+    .process-flow { flex-direction: column; }
+    .process-step { margin-right: 0; margin-bottom: 10px; }
+    .patent-banner { flex-direction: column; text-align: center; }
+    .deep-section { padding: 48px 24px 8px; }
+    .deep-body-wrap { padding: 4px 24px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">MOR<span class="e">e</span>.</div>
+  <ul class="nav-links">
+    <li><a href="#innovation">Innovation</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#learn-more">Learn more</a></li>
+    <li><a href="#contact">Visit</a></li>
+  </ul>
+  <a href="#programs" class="nav-cta">Book a visit</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">Scalp Studio · Vancouver</p>
+    <h1 class="hero-title">The only scalp program<br>built on <em>exosome ×<br>cold plasma.</em></h1>
+    <p class="hero-desc">
+      A combination found nowhere else in Canada — exosomes and cold plasma
+      technology, working together for faster results and real anti-inflammatory
+      care, on any skin type.
+    </p>
+    <div class="hero-ctas">
+      <a href="#programs" class="btn-primary">See programs</a>
+      <a href="#contact" class="btn-secondary">Book a consult</a>
+    </div>
+    <div class="hero-badges">
+      <span class="pill" style="border-color: var(--custard-deep); background: rgba(254,239,182,0.4);">Canada-exclusive combination</span>
+      <span class="pill">Exosome therapy</span>
+      <span class="pill">Cold plasma</span>
+      <span class="pill">Scalp massage &amp; pigmentation</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <svg class="hero-waves" viewBox="0 0 600 800" preserveAspectRatio="none">
+      <path d="M0,120 C150,180 250,60 400,110 C500,145 560,90 600,100 L600,0 L0,0 Z" fill="rgba(244,238,226,0.06)"/>
+      <path d="M0,680 C150,620 280,740 420,690 C520,655 570,710 600,700 L600,800 L0,800 Z" fill="rgba(67,47,46,0.18)"/>
+    </svg>
+    <div class="hero-right-inner">
+      <div class="hero-medallion">
+        <div class="hero-medallion-mark">MOR<span class="e">e</span>.</div>
+      </div>
+      <p class="hero-right-tag">Found Only<br>At MOR.e</p>
+      <div class="hero-right-line"></div>
+      <p class="hero-right-quote">"Exosome science meets<br>cold plasma — together."</p>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--cream);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,55 400,8 600,32 C800,55 1000,10 1200,30 L1200,60 L0,60 Z" fill="var(--sky)"></path>
+  </svg>
+</div>
+
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-inner">
+    <div>
+      <p class="philosophy-quote">"Prevention is the most powerful treatment we offer."</p>
+      <p class="philosophy-body">
+        Most people wait until thinning is visible before seeking help — but consistent,
+        gentle scalp care is the most effective way to protect the hair you have and
+        encourage what's dormant to wake up. At MOR.e, your scalp is treated as the
+        living foundation it is. Come in, breathe, and let the ritual do its work.
+      </p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-icon"><span>r</span></div>
+        <div>
+          <p class="pillar-title">Restore</p>
+          <p class="pillar-text">Massage and exosome therapy rebuild circulation and reactivate dormant follicles, gently.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><span>p</span></div>
+        <div>
+          <p class="pillar-title">Protect</p>
+          <p class="pillar-text">Calming, anti-inflammatory care reduces the everyday stress that thins hair before you notice.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><span>m</span></div>
+        <div>
+          <p class="pillar-title">Maintain</p>
+          <p class="pillar-text">Regular visits keep your scalp in its best condition — fuller, for longer, without the upkeep feeling like work.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--sky);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,8 400,52 600,28 C800,5 1000,50 1200,28 L1200,0 L0,0 Z" fill="var(--mocha)"></path>
+  </svg>
+</div>
+
+<section class="innovation-section" id="innovation">
+  <div class="innovation-inner">
+    <p class="innovation-eyebrow">Found nowhere else in Canada</p>
+    <h2 class="innovation-title">Where exosome science<br><em>meets cold plasma.</em></h2>
+    <p class="innovation-lead">
+      Every clinic offers exosomes. Some offer cold plasma. MOR.e is the only
+      scalp program in Canada that combines both — and the combination is the
+      whole point.
+    </p>
+
+    <div class="innovation-grid">
+      <div class="innovation-card">
+        <p class="innovation-card-num">Alone</p>
+        <p class="innovation-card-title">Exosomes</p>
+        <p class="innovation-card-text">Deliver growth factors to the follicle. Effective — but slower to show results, and limited in how deeply they're absorbed on their own.</p>
+      </div>
+      <div class="innovation-plus">+</div>
+      <div class="innovation-card">
+        <p class="innovation-card-num">Alone</p>
+        <p class="innovation-card-title">Cold plasma</p>
+        <p class="innovation-card-text">Sterilizes and stimulates collagen at the surface. Effective — but on its own, it doesn't reach the follicle itself.</p>
+      </div>
+      <div class="innovation-equals">=</div>
+      <div class="innovation-card featured-card">
+        <p class="innovation-card-num featured-num">Together, only at MOR.e</p>
+        <p class="innovation-card-title">Faster, calmer, deeper</p>
+        <p class="innovation-card-text">Cold plasma opens and calms the surface first — so exosomes are absorbed faster and more completely, with anti-inflammatory support throughout.</p>
+      </div>
+    </div>
+
+    <div class="innovation-benefits">
+      <div class="innovation-benefit">
+        <p class="innovation-benefit-label">Speed</p>
+        <p class="innovation-benefit-text">Results that would normally take a full series begin showing sooner, because absorption isn't fighting an inflamed, unprepared surface.</p>
+      </div>
+      <div class="innovation-benefit">
+        <p class="innovation-benefit-label">Anti-inflammatory</p>
+        <p class="innovation-benefit-text">Cold plasma's sterilizing, calming effect means less irritation throughout the process — not just a side benefit, but core to why this works faster.</p>
+      </div>
+      <div class="innovation-benefit">
+        <p class="innovation-benefit-label">Any skin type</p>
+        <p class="innovation-benefit-text">Because the combination is gentler by design, it can be safely adjusted for sensitive, reactive, or compromised scalp conditions that other treatments can't touch.</p>
+      </div>
+    </div>
+
+    <a href="#deep-plasma" class="innovation-link">See the full science behind this combination ↓</a>
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--mocha);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,55 400,8 600,32 C800,55 1000,10 1200,30 L1200,60 L0,60 Z" fill="var(--cream)"></path>
+  </svg>
+</div>
+
+<section class="section" id="programs">
+  <p class="section-eyebrow">What we offer</p>
+  <h2 class="section-title">Four ways to begin<br><em>your restoration.</em></h2>
+  <p class="section-body">
+    Each program builds on the last — from a quiet 30-minute reset to a complete,
+    consultation-led transformation. All under 60 minutes, except where real
+    change asks for more time.
+  </p>
+
+  <div class="launch-strip">
+    <p class="launch-strip-eyebrow">Vancouver Launch Promotion</p>
+    <p class="launch-strip-title">First 20 seats only</p>
+    <p class="launch-strip-sub">Vancouver market rates, reimagined for our studio's opening</p>
+  </div>
+
+  <div class="seats-bar">
+    <span class="seats-num">20</span>
+    <span class="seats-text">
+      <strong>This pricing is reserved for our first 20 guests.</strong><br>
+      Once all 20 seats are filled, every program returns to its regular price — double the launch rate.
+    </span>
+  </div>
+
+  <div class="program-grid">
+
+    <div class="program-card">
+      <div class="program-top">
+        <p class="program-num">Program 01</p>
+        <p class="program-name">Awaken</p>
+        <p class="program-tagline">A light, restorative first ritual</p>
+        <span class="duration-chip">30 min</span>
+        <div class="market-row">
+          <span class="market-label">Vancouver market</span>
+          <span class="market-val">$95–$180</span>
+        </div>
+        <div class="launch-row">
+          <span class="launch-price">$65</span>
+          <span class="launch-label">Launch price</span>
+        </div>
+        <p class="future-price">Regular price: <strong>$130</strong></p>
+      </div>
+      <div class="program-body">
+        <p class="program-section-label">Included</p>
+        <ul class="program-items">
+          <li class="highlight">Head spa, express ritual</li>
+          <li class="highlight">Scalp serum infusion</li>
+          <li>Aroma therapy</li>
+          <li>Waterfall therapy</li>
+          <li>Scalp reading</li>
+        </ul>
+        <div class="opt-chips">
+          <span class="opt-chip">Aroma</span>
+          <span class="opt-chip">Waterfall</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="program-card featured">
+      <div class="program-top">
+        <span class="featured-badge">Most loved</span>
+        <p class="program-num">Program 02</p>
+        <p class="program-name">Unwind</p>
+        <p class="program-tagline">Massage that releases tension and restores flow</p>
+        <span class="duration-chip">45 min</span>
+        <div class="market-row">
+          <span class="market-label">Vancouver market</span>
+          <span class="market-val">$250–$400</span>
+        </div>
+        <div class="launch-row">
+          <span class="launch-price">$110</span>
+          <span class="launch-label">Launch price</span>
+        </div>
+        <p class="future-price">Regular price: <strong>$220</strong></p>
+      </div>
+      <div class="program-body">
+        <p class="program-section-label">Included</p>
+        <ul class="program-items">
+          <li class="highlight">Head spa, full ritual</li>
+          <li class="highlight">Scalp serum infusion</li>
+          <li class="highlight">Magnetic field scalp massage</li>
+          <li>Aroma therapy</li>
+          <li>Waterfall therapy</li>
+          <li>Scalp reading &amp; progress photo</li>
+        </ul>
+        <div class="opt-chips">
+          <span class="opt-chip">Aroma</span>
+          <span class="opt-chip">Waterfall</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="program-card">
+      <div class="program-top">
+        <p class="program-num">Program 03</p>
+        <p class="program-name">Replenish</p>
+        <p class="program-tagline">Deep, cellular-level recovery</p>
+        <span class="duration-chip">60 min</span>
+        <div class="market-row">
+          <span class="market-label">Vancouver market</span>
+          <span class="market-val">$420–$900</span>
+        </div>
+        <div class="launch-row">
+          <span class="launch-price">$185</span>
+          <span class="launch-label">Launch price</span>
+        </div>
+        <p class="future-price">Regular price: <strong>$370</strong></p>
+      </div>
+      <div class="program-body">
+        <p class="program-section-label">Included</p>
+        <ul class="program-items">
+          <li class="highlight">Head spa ritual</li>
+          <li class="highlight">Scalp serum infusion</li>
+          <li class="highlight">Magnetic field scalp massage</li>
+          <li class="highlight">Exosome therapy, 1 vial</li>
+          <li class="highlight">Cold plasma treatment</li>
+          <li>Waterfall therapy</li>
+          <li class="spark">LED therapy</li>
+        </ul>
+        <div class="opt-chips">
+          <span class="opt-chip">Waterfall</span>
+          <span class="opt-chip spark">LED</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="consult-card">
+    <div class="consult-grid">
+      <div class="consult-left">
+        <p class="consult-num">Program 04</p>
+        <p class="consult-name">Fuller</p>
+        <p class="consult-tagline">A complete transformation, completed with pigmentation</p>
+        <span class="consult-duration">Private consultation</span>
+        <div>
+          <p class="consult-price">Quoted after consult</p>
+          <p class="consult-price-note">Pricing depends on area, density and design — special launch quote available within our first 20 seats.</p>
+        </div>
+      </div>
+      <div class="consult-right">
+        <p class="consult-section-label">Consultation includes</p>
+        <ul class="consult-items">
+          <li>Scalp area &amp; density assessment</li>
+          <li>Personalized hairline design consult</li>
+          <li>Session plan across Day 1 and Day 2</li>
+          <li>Before &amp; after documentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo-note">
+    <strong>About this launch</strong> — Programs 01–03 pricing is available to our
+    first 20 booked guests only. Once that's reached, pricing returns to its regular
+    rate — roughly double the launch price. Vancouver market figures reflect average
+    rates at comparable local studios offering similar services.
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--cream);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,55 400,8 600,32 C800,55 1000,10 1200,30 L1200,60 L0,60 Z" fill="#ffffff"></path>
+  </svg>
+</div>
+
+<section class="section" id="trust">
+  <p class="section-eyebrow">Why MOR.e</p>
+  <h2 class="section-title">Three reasons to <em>trust the process.</em></h2>
+  <p class="section-body">
+    Restoration is rarely one thing. It's the steady combination of innovation,
+    touch, and expertise — and MOR.e is built around all three.
+  </p>
+
+  <div class="trust-grid">
+    <div class="trust-card" style="border: 2px solid var(--sky-deep);">
+      <p class="trust-title">An innovation you won't find anywhere else in Canada</p>
+      <p class="trust-body">
+        Exosome therapy and cold plasma technology, used together, aren't offered
+        as a combined scalp protocol anywhere else in the country. This pairing is
+        what lets us move faster and gentler than either treatment alone — and
+        it's exclusive to MOR.e.
+      </p>
+    </div>
+    <div class="trust-card">
+      <p class="trust-title">A practitioner who is also a SMP artist</p>
+      <p class="trust-body">
+        Most studios offer either scalp wellness or pigmentation — rarely both, and
+        rarely from the same trained hand. At MOR.e, your massage therapist and your
+        SMP artist are the same person, which means your scalp's health and its
+        appearance are planned together, not handed off between providers.
+      </p>
+    </div>
+    <div class="trust-card">
+      <p class="trust-title">Science, applied gently</p>
+      <p class="trust-body">
+        Exosomes carry growth factors directly to the follicle, while cold plasma
+        calms and prepares the surface first. We pair this with hands-on massage
+        and aroma therapy — so the science does its work while the experience
+        still feels like rest, not a procedure.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="learn-more">
+  <p class="section-eyebrow">Go deeper</p>
+  <h2 class="section-title">See how it <em>actually works.</em></h2>
+  <p class="section-body">
+    Curious about the science, the tools, or the real results? Tap any card to
+    jump straight to that section below — everything lives on this one page.
+  </p>
+
+  <div class="learn-grid">
+
+    <a href="#deep-exosome" class="learn-card">
+      <div class="learn-card-top">
+        <span class="learn-card-icon">e</span>
+        <p class="learn-card-label">The science</p>
+      </div>
+      <p class="learn-card-title">What exosomes actually do to your scalp</p>
+      <p class="learn-card-desc">Growth factors, follicle signaling, and why pairing this with cold plasma changes everything.</p>
+      <span class="learn-card-cta">Read the science ↓</span>
+    </a>
+
+    <a href="#deep-results" class="learn-card">
+      <div class="learn-card-top">
+        <span class="learn-card-icon">r</span>
+        <p class="learn-card-label">Real results</p>
+      </div>
+      <p class="learn-card-title">Before & after, from real guests</p>
+      <p class="learn-card-desc">Honest photos from real sessions — parting lines, density, and texture.</p>
+      <span class="learn-card-cta">See the results ↓</span>
+    </a>
+
+    <a href="#deep-massage" class="learn-card">
+      <div class="learn-card-top">
+        <span class="learn-card-icon">m</span>
+        <p class="learn-card-label">The technique</p>
+      </div>
+      <p class="learn-card-title">Magnetic field scalp massage, explained</p>
+      <p class="learn-card-desc">How the trident gua sha tool moves circulation, swelling, and tension — gently.</p>
+      <span class="learn-card-cta">Learn the technique ↓</span>
+    </a>
+
+    <a href="#deep-plasma" class="learn-card">
+      <div class="learn-card-top">
+        <span class="learn-card-icon">c</span>
+        <p class="learn-card-label">The innovation</p>
+      </div>
+      <p class="learn-card-title">Cold plasma — the science of ionized water</p>
+      <p class="learn-card-desc">Patented technology, and the Canada-exclusive pairing with exosomes that makes this protocol unique.</p>
+      <span class="learn-card-cta">Discover cold plasma ↓</span>
+    </a>
+
+  </div>
+</section>
+
+<div class="wave-divider" style="background:var(--cream);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,55 400,8 600,32 C800,55 1000,10 1200,30 L1200,60 L0,60 Z" fill="var(--sky-deep)"></path>
+  </svg>
+</div>
+
+<section class="deep-section" id="deep-exosome">
+  <div class="deep-section-inner">
+    <p class="deep-eyebrow">The science</p>
+    <h2 class="deep-title">What exosomes actually do <em>to your scalp</em></h2>
+    <p class="deep-sub">Not another serum claim — the real biology behind why this works.</p>
+  </div>
+</section>
+<div class="deep-body-wrap">
+  <div class="deep-content">
+<p class="lead">
+    Exosomes are tiny vesicles released by stem cells — think of them as
+    <strong>messengers</strong>, not building blocks. They don't replace anything in
+    your scalp. Instead, they carry instructions: growth factors, proteins, and
+    signaling molecules that tell your existing follicles to wake up, repair, and
+    keep growing.
+  </p>
+
+  <h2>Why your scalp <em>stops</em> growing hair in the first place</h2>
+  <p class="body-text">
+    Hair thinning rarely happens because follicles disappear. More often, they go
+    dormant — pushed into a resting phase by chronic inflammation, poor circulation,
+    or stress on the scalp. The follicle is still there. It's just not getting the
+    signal to do its job.
+  </p>
+  <p class="body-text">
+    This is the gap exosome therapy is built to close. Rather than masking the
+    problem with styling or coverage, it works at the level where the problem
+    actually starts.
+  </p>
+
+  <div class="pull-quote">
+    "Exosomes don't grow hair on their own — they remind your follicles how."
+  </div>
+
+  <h2>The two things exosomes <em>actually</em> do</h2>
+
+  <div class="mechanism-grid">
+    <div class="mechanism-card">
+      <p class="mechanism-num">Mechanism 01</p>
+      <p class="mechanism-title">Calm the inflammation</p>
+      <p class="mechanism-text">
+        Chronic, low-grade inflammation around the follicle is one of the most
+        common — and most overlooked — causes of thinning. Exosomes carry
+        anti-inflammatory signals that reduce this irritation, protecting follicles
+        from the slow damage that inflammation causes over time.
+      </p>
+    </div>
+    <div class="mechanism-card">
+      <p class="mechanism-num">Mechanism 02</p>
+      <p class="mechanism-title">Restore circulation</p>
+      <p class="mechanism-text">
+        Healthy hair growth depends on a steady supply of oxygen and nutrients.
+        Exosomes support the formation of new blood flow pathways to the scalp,
+        improving delivery to areas that have been undernourished — often for years.
+      </p>
+    </div>
+  </div>
+
+  <h2>What this looks like during a <em>Replenish</em> session</h2>
+  <p class="body-text">
+    At MOR.e, exosome therapy is delivered as part of Program 03, Replenish.
+    One vial is applied directly to the scalp following a full head spa ritual
+    and therapeutic massage — the massage itself helps circulation carry the
+    exosomes further, and LED light afterward supports absorption and calms the
+    scalp post-treatment.
+  </p>
+  <p class="body-text">
+    Most guests describe the session as deeply relaxing rather than clinical —
+    there's no injection, no downtime, and no need to plan your week around it.
+  </p>
+
+  <div class="stat-strip">
+    <div>
+      <p class="stat-num">8–12</p>
+      <p class="stat-label">weeks until visible change typically begins</p>
+    </div>
+    <div>
+      <p class="stat-num">4–6</p>
+      <p class="stat-label">weeks recommended between sessions</p>
+    </div>
+    <div>
+      <p class="stat-num">0</p>
+      <p class="stat-label">downtime — walk in, relax, walk out</p>
+    </div>
+  </div>
+
+  <h2>Why it works faster <em>at MOR.e</em></h2>
+  <p class="body-text">
+    Exosomes are only as effective as the surface they're applied to. A scalp
+    that's inflamed or congested absorbs less, and absorbs slower. That's the gap
+    MOR.e closes — by preparing the scalp with cold plasma technology first, we
+    create the conditions for exosomes to be absorbed faster and more completely
+    than they would be on their own. It's a combination found nowhere else in
+    Canada, and it's the reason guests often notice change sooner than they expect.
+  </p>
+
+  <h2>Common questions</h2>
+
+  <div class="faq-item">
+    <p class="faq-q">Is this the same as PRP?</p>
+    <p class="faq-a">No. PRP uses your own blood platelets, which requires a blood draw. Exosomes are lab-derived and don't require any blood collection — the session itself is needle-free and far gentler.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">How many sessions will I actually need?</p>
+    <p class="faq-a">Most guests see meaningful change with a series of 2–3 sessions, spaced four to six weeks apart, followed by occasional maintenance every few months. Because we pair this with cold plasma preparation, many guests notice initial change sooner than this timeline suggests. We'll map out a realistic plan together at your first visit.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">Does it hurt?</p>
+    <p class="faq-a">No. There's no needle involved in our protocol — the scalp is left comfortable, sometimes slightly warm from the LED step, and that's it.</p>
+  </div>
+  </div>
+</div>
+
+<section class="deep-section" id="deep-results">
+  <div class="deep-section-inner">
+    <p class="deep-eyebrow">Real results</p>
+    <h2 class="deep-title">Before & after, <em>from real guests</em></h2>
+    <p class="deep-sub">No filters, no studio lighting tricks — just consistent care over time.</p>
+  </div>
+</section>
+<div class="deep-body-wrap">
+  <div class="deep-content">
+<p class="lead">
+    These are real sessions, shown with permission. What you'll notice across each
+    one isn't a dramatic before-and-after gimmick — it's the kind of steady,
+    believable change that comes from consistent scalp care: visible scalp showing
+    less through the part, finer baby hairs filling in, and an overall fuller
+    appearance at the crown.
+  </p>
+
+  <div class="case-block">
+    <div class="case-label-row">
+      <span class="case-num">01</span>
+      <span class="case-label">Crown density, full series</span>
+    </div>
+    <div class="photo-pair">
+      <div class="photo-frame">
+        <span class="photo-tag">Before</span>
+        <img src="images/before-after-1.jpg" alt="Crown area before treatment, showing visible scalp and thinning at the part">
+      </div>
+      <div class="photo-frame">
+        <span class="photo-tag after">After</span>
+        <img src="images/before-after-1.jpg" alt="Crown area after treatment series, showing fuller coverage and reduced scalp visibility">
+      </div>
+    </div>
+    <p class="case-caption">Crown coverage after a full course of scalp massage and exosome therapy — less scalp showing, finer hairs filling the part.</p>
+  </div>
+
+  <div class="case-block">
+    <div class="case-label-row">
+      <span class="case-num">02</span>
+      <span class="case-label">Part-line thickening, close range</span>
+    </div>
+    <div class="photo-pair">
+      <div class="photo-frame">
+        <span class="photo-tag">Before</span>
+        <img src="images/before-after-2.jpg" alt="Close-up of part line before treatment, showing a wider gap of visible scalp">
+      </div>
+      <div class="photo-frame">
+        <span class="photo-tag after">After</span>
+        <img src="images/before-after-2.jpg" alt="Close-up of part line after treatment, showing a visibly narrower part and denser coverage">
+      </div>
+    </div>
+    <p class="case-caption">A close-range view of the part line — the kind of detail that's hard to fake, and the easiest place to see real change.</p>
+  </div>
+
+  <div class="case-block">
+    <div class="case-label-row">
+      <span class="case-num">03</span>
+      <span class="case-label">A closer look at scalp condition</span>
+    </div>
+    <div class="single-photo">
+      <img src="images/scalp-before.jpg" alt="Close-up of scalp showing a visible thinning patch before treatment">
+    </div>
+    <p class="case-caption">Some guests come to us with a specific patch of concern. This is what that looks like up close, before any treatment begins.</p>
+  </div>
+
+  <div class="case-block">
+    <div class="case-label-row">
+      <span class="case-num">04</span>
+      <span class="case-label">The same area, later</span>
+    </div>
+    <div class="single-photo">
+      <img src="images/scalp-after.jpg" alt="Close-up of the same scalp area after treatment, showing improved coverage">
+    </div>
+    <p class="case-caption">Same area, after consistent visits. Coverage improves gradually — this is what real, ongoing care looks like, not a single dramatic session.</p>
+  </div>
+
+  <div class="notice-box">
+    <strong>A note on these photos</strong> — results vary by individual, scalp
+    condition, and consistency of visits. These photos are shared with guest
+    permission to show realistic outcomes, not guaranteed ones. Your own results
+    will be shaped by your scalp's specific starting point, which we'll assess
+    together at your first visit.
+  </div>
+
+  <div class="results-strip">
+    <p class="results-title">What guests typically notice, and when</p>
+    <div class="results-grid">
+      <div class="result-stat">
+        <p class="result-num">2–4 wks</p>
+        <p class="result-label">less shedding, calmer scalp</p>
+      </div>
+      <div class="result-stat">
+        <p class="result-num">8–12 wks</p>
+        <p class="result-label">visible new growth begins</p>
+      </div>
+      <div class="result-stat">
+        <p class="result-num">6 mo</p>
+        <p class="result-label">fullest visible density</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<section class="deep-section" id="deep-massage">
+  <div class="deep-section-inner">
+    <p class="deep-eyebrow">The technique</p>
+    <h2 class="deep-title">Magnetic field scalp massage, <em>explained</em></h2>
+    <p class="deep-sub">The trident gua sha tool, adapted gently for the scalp.</p>
+  </div>
+</section>
+<div class="deep-body-wrap">
+  <div class="deep-content">
+<p class="lead">
+    Our scalp massage uses a <strong>magnetic field trident gua sha tool</strong> —
+    a technique with roots in traditional bodywork, used here to support circulation,
+    ease tension, and calm a scalp that's been carrying stress it didn't even know
+    it was holding.
+  </p>
+
+  <div class="tool-card">
+    <div class="tool-icon"><span class="tool-icon-mark">m</span></div>
+    <div>
+      <p class="tool-name">The trident gua sha, magnetic field tool</p>
+      <p class="tool-desc">
+        A three-pronged tool designed to draw out the body's natural bioelectric
+        current, used here to move circulation and ease tension specifically
+        across the scalp.
+      </p>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    "A fast way to release the heavy, pressured feeling that builds up in a tired scalp."
+  </div>
+
+  <h2>What it's used for</h2>
+  <p class="body-text">
+    This tool is part of a broader body of work used across the body for
+    circulation and drainage — but at MOR.e, we focus it specifically on what it
+    does for the scalp.
+  </p>
+
+  <div class="benefit-grid">
+    <div class="benefit-card">
+      <p class="benefit-area">Scalp</p>
+      <ul class="benefit-list">
+        <li>Fast release of heat and pressure buildup</li>
+        <li>Supports circulation to stagnant areas</li>
+        <li>Eases that heavy, compressed feeling</li>
+        <li>Calms an overstimulated nervous system</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scalp-focus">
+    <p class="scalp-focus-title">Why the scalp responds so quickly</p>
+    <p class="scalp-focus-text">
+      The scalp holds tension differently than people expect — tight, compressed,
+      almost like it's been clenched all day without you noticing. The magnetic
+      field tool releases built-up heat and pressure quickly, which is often the
+      first thing guests comment on: a sense of immediate lightness, even before
+      any longer-term results begin to show.
+    </p>
+  </div>
+
+  <h2>What a session actually <em>feels</em> like</h2>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div>
+        <p class="step-title">Warm-up</p>
+        <p class="step-text">The scalp is prepped with aroma therapy and a warm waterfall rinse to soften tension before any tool touches the skin.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div>
+        <p class="step-title">Trident pass</p>
+        <p class="step-text">The magnetic trident moves along key pressure points across the scalp — firm enough to feel effective, gentle enough to stay relaxing.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div>
+        <p class="step-title">Release</p>
+        <p class="step-text">As circulation picks up, most guests feel an immediate release of pressure — the "heavy head" feeling lifting in real time.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div>
+        <p class="step-title">Settle</p>
+        <p class="step-text">The session closes with a calming finish, often paired with LED therapy in our longer programs to extend the effect.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<section class="deep-section" id="deep-plasma">
+  <div class="deep-section-inner">
+    <p class="deep-eyebrow">The innovation</p>
+    <h2 class="deep-title">Cold plasma — <em>ionized water,</em> made for skin</h2>
+    <p class="deep-sub">Patented technology that sterilizes, rebuilds collagen, and supports elastin.</p>
+  </div>
+</section>
+<div class="deep-body-wrap">
+  <div class="deep-content">
+<p class="lead">
+    Cold plasma sounds futuristic because it is — but the idea behind it is simple.
+    By physically ionizing water, we create a solution that does two things skin
+    care rarely manages to do at the same time: <strong>sterilize gently</strong>
+    and <strong>stimulate repair</strong>.
+  </p>
+
+  <div class="patent-banner">
+    <div class="patent-icon"><span>c</span></div>
+    <p class="patent-text">
+      <strong>Patented technology.</strong> Our cold plasma water is developed under
+      a registered patent for cold plasma beauty device manufacturing — not an
+      off-the-shelf ingredient, but a process we've built and applied directly into
+      our own product line.
+    </p>
+  </div>
+
+  <h2>What "ionized plasma water" <em>actually means</em></h2>
+  <p class="body-text">
+    Plasma is sometimes called the fourth state of matter — alongside solid, liquid,
+    and gas. Cold plasma technology uses a physical (not chemical) process to
+    ionize water, changing its molecular activity without heat or harsh additives.
+    The result is a water-based solution that's biologically active in a way
+    ordinary water isn't.
+  </p>
+  <p class="body-text">
+    Because the process is physical rather than chemical, it avoids the kind of
+    irritation that strong actives can cause — which is part of why it pairs so
+    well with sensitive, post-treatment scalp skin.
+  </p>
+
+  <div class="process-flow">
+    <div class="process-step">
+      <p class="process-num">01</p>
+      <p class="process-label">Ionize</p>
+      <p class="process-text">Water is physically charged through cold plasma technology — no heat, no chemical additives.</p>
+    </div>
+    <div class="process-step">
+      <p class="process-num">02</p>
+      <p class="process-label">Activate</p>
+      <p class="process-text">The ionized water generates reactive oxygen species that interact with the skin's surface.</p>
+    </div>
+    <div class="process-step">
+      <p class="process-num">03</p>
+      <p class="process-label">Restore</p>
+      <p class="process-text">This activity signals skin cells to ramp up collagen and elastin production.</p>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    "Sterilizes first, then tells the skin to start rebuilding — in the same step."
+  </div>
+
+  <h2>Two things happening <em>at once</em></h2>
+
+  <div class="mechanism-grid">
+    <div class="mechanism-card">
+      <p class="mechanism-num">Effect 01</p>
+      <p class="mechanism-title">Sterilizes with reactive oxygen</p>
+      <p class="mechanism-text">
+        The reactive oxygen species generated by the ionization process help
+        cleanse the skin's surface — supporting a calmer, less reactive scalp
+        environment before any other treatment is applied.
+      </p>
+    </div>
+    <div class="mechanism-card">
+      <p class="mechanism-num">Effect 02</p>
+      <p class="mechanism-title">Stimulates collagen production</p>
+      <p class="mechanism-text">
+        The same activity that sterilizes also signals fibroblasts to increase
+        collagen synthesis — the structural protein that keeps skin (and the
+        scalp's surface) firm and well-supported.
+      </p>
+    </div>
+    <div class="mechanism-card">
+      <p class="mechanism-num">Effect 03</p>
+      <p class="mechanism-title">Increases elastin generation</p>
+      <p class="mechanism-text">
+        Alongside collagen, elastin production rises — supporting the skin's
+        ability to bounce back, which matters as much on the scalp as it does
+        anywhere else on the body.
+      </p>
+    </div>
+  </div>
+
+  <div class="scalp-focus">
+    <p class="scalp-focus-title">Why this matters for your scalp specifically</p>
+    <p class="scalp-focus-text">
+      A scalp under chronic stress often shows the same signs as aging skin
+      elsewhere — reduced elasticity, a compromised surface barrier, and a slower
+      recovery cycle. By sterilizing and stimulating structural protein production
+      in the same step, cold plasma water gives the scalp's surface a better
+      foundation to support the deeper work being done by massage and exosome
+      therapy.
+    </p>
+  </div>
+
+  <h2>The part no other clinic in Canada offers</h2>
+  <p class="body-text">
+    On its own, cold plasma prepares and calms the surface. On its own, exosome
+    therapy delivers growth factors to the follicle. Used <em>together</em> —
+    which is the protocol unique to MOR.e — the calmed, sterilized surface lets
+    exosomes absorb faster and more completely, while the anti-inflammatory
+    effect continues working underneath. That combination is what makes results
+    arrive sooner, and what makes the protocol gentle enough for scalps that
+    other treatments would irritate.
+  </p>
+
+  <div class="pull-quote">
+    "Two technologies, one session — faster results, with less irritation than either alone."
+  </div>
+
+  <h2>Common questions</h2>
+
+  <div class="faq-item">
+    <p class="faq-q">Is this safe for sensitive skin?</p>
+    <p class="faq-a">Yes — and this is actually where the combination shines most. Because the activation process is physical rather than chemical, and because cold plasma calms the surface before exosomes are applied, this protocol is often gentler than either treatment used alone. It's well-suited to a scalp that's sensitive, reactive, or has been irritated by other treatments in the past.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">Is cold plasma the same as the LED therapy you mention elsewhere?</p>
+    <p class="faq-a">No — they're different technologies that complement each other. LED uses light wavelengths to support absorption and calming; cold plasma uses ionized water to sterilize and stimulate collagen and elastin production at the surface level, ahead of exosome application.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">Can I get this combination anywhere else?</p>
+    <p class="faq-a">Not as a combined scalp protocol — to our knowledge, MOR.e is the only studio in Canada pairing cold plasma technology with exosome therapy specifically for the scalp. Ask your practitioner at your visit and we'll walk you through exactly how it's structured in your program.</p>
+  </div>
+  </div>
+</div>
+
+<div class="wave-divider" style="background:var(--cream);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path d="M0,30 C200,55 400,8 600,32 C800,55 1000,10 1200,30 L1200,60 L0,60 Z" fill="var(--sky-deep)"></path>
+  </svg>
+</div>
+<section class="testimonial-section">
+  <p class="testimonial-quote">
+    "It didn't feel clinical — it felt like being cared for.
+    And I left looking like myself, only fuller."
+  </p>
+  <p class="testimonial-attr">— Studio Client</p>
+</section>
+
+<section class="final-cta" id="contact">
+  <p class="final-cta-title">MOR<span class="e">e</span>.</p>
+  <p class="final-cta-sub">A fuller head, gently restored.</p>
+  <a href="#programs" class="btn-primary" style="background:var(--custard); color:var(--mocha);">Reserve your seat</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">MOR<span class="e">e</span>.</p>
+      <p class="footer-tag">Scalp Studio · Vancouver, BC</p>
+    </div>
+    <div class="footer-meta">
+      thelinebrows@gmail.com<br>
+      778-798-5463 · @more.scalp<br>
+      5172 Kingsway, Vancouver, BC
+    </div>
+  </div>
+  <p class="footer-bottom">© MOR.e Scalp Studio — Launch edition, V1</p>
+</footer>
+
+</body>
+</html>
